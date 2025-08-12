@@ -1,0 +1,164 @@
+# Vibecraft AI Development Rules 🤖💥
+
+## Core Development Philosophy
+This project is an **AI-Powered Minecraft Mod Development Framework** that prioritizes automated testing and validation. All development must follow the RPA testing approach to ensure reliability.
+
+## Mandatory Workflow for New Functionality
+
+### 1. 🧪 **TEST-DRIVEN DEVELOPMENT (Required)**
+When adding ANY new functionality:
+
+**STEP 1: Write Tests FIRST**
+- Add comprehensive test methods to `src/main/java/com/vibecraft/command/TestCommand.java`
+- Update the `runAllTests()` method to include your new test
+- Tests must validate real in-game behavior, not just unit logic
+- Follow the existing pattern: spawn entities, trigger mechanics, verify results
+
+**STEP 2: Implement Functionality**  
+- Write the actual feature code
+- Use mixins, commands, networking as needed
+- Follow existing architecture patterns
+
+**STEP 3: Run Automated Tests**
+```bash
+./run-test.sh
+```
+OR execute in-game:
+```
+/runalltests
+```
+
+**STEP 4: Fix Until Tests Pass**
+- If tests fail → debug and fix code
+- If tests are wrong → update test expectations
+- Repeat until ALL tests pass (4/4)
+- Never ship failing tests
+
+### 2. 📝 **DOCUMENTATION (Required)**
+After tests pass:
+- Add feature description to README.md "Mod Features" section
+- Update command reference if applicable
+- Add code examples for complex features
+- Update architecture diagrams if needed
+
+### 3. 🔄 **ITERATION RULES**
+- **Never skip tests** - Every feature must have corresponding tests
+- **Fix broken tests immediately** - Don't accumulate technical debt
+- **Run tests frequently** - After every significant change
+- **Test edge cases** - Include error conditions and boundary values
+
+## Specific Testing Patterns
+
+### For Game Mechanics (Explosions, Physics, etc.)
+```java
+private static boolean testNewFeature(ServerCommandSource source, ServerPlayerEntity player, ServerWorld world) {
+    try {
+        // 1. Setup test environment
+        source.sendFeedback(() -> Text.literal("  → Setting up test..."), false);
+        
+        // 2. Spawn entities/create conditions
+        // 3. Trigger your feature
+        // 4. Validate results
+        // 5. Report success/failure
+        
+        return true; // or false if validation fails
+    } catch (Exception e) {
+        source.sendFeedback(() -> Text.literal("  → Test error: " + e.getMessage()), false);
+        return false;
+    }
+}
+```
+
+### For Commands
+- Test command registration works
+- Test command execution with various parameters
+- Test error handling for invalid inputs
+- Test permission levels
+
+### For Client-Server Features
+- Test network packet transmission
+- Test client-side behavior
+- Test server-side behavior
+- Test synchronization
+
+### For Configuration
+- Test setting values
+- Test persistence
+- Test edge cases (min/max values)
+- Test reset functionality
+
+## Code Quality Standards
+
+### Architecture Requirements
+- **Separation of concerns**: Client code in `src/client/`, server code in `src/main/`
+- **Proper mixins**: Target specific methods, minimal impact
+- **Clean commands**: Use Brigadier properly, good error messages
+- **Networking**: Use Fabric's payload system for client-server communication
+
+### Performance Requirements  
+- **Fast test execution**: Tests should complete quickly for rapid iteration
+- **Memory efficient**: Don't leak entities or resources in tests
+- **Thread safe**: Handle concurrent access properly
+
+### Error Handling
+- **Graceful failures**: Tests should not crash the game
+- **Clear error messages**: Both for users and developers
+- **Proper cleanup**: Remove test entities after tests complete
+
+## AI Assistant Guidelines
+
+### When I ask to add new functionality:
+1. **Always start with**: "I'll add tests for this functionality first, then implement it"
+2. **Ask clarifying questions** about expected behavior for testing
+3. **Implement the test methods** before the actual feature
+4. **Run the tests** to verify they fail initially (TDD)
+5. **Implement the feature** to make tests pass
+6. **Run tests again** to confirm everything works
+7. **Update documentation** to reflect the new feature
+
+### When tests fail:
+1. **Analyze the failure** - what specifically went wrong?
+2. **Fix the code** - don't just modify tests to pass
+3. **Re-run tests** to confirm the fix
+4. **If still failing** - repeat the debug cycle
+5. **Only modify test expectations** if the original test was incorrect
+
+### When I ask to modify existing functionality:
+1. **Run existing tests first** to establish baseline
+2. **Add new tests** for the modified behavior  
+3. **Update implementation**
+4. **Ensure all tests pass** (old + new)
+5. **Update documentation** for changed behavior
+
+## File Organization
+
+### Test Files
+- `src/main/java/com/vibecraft/command/TestCommand.java` - Main test runner
+- `src/test/java/com/vibecraft/automated/VibecraftTestRunner.java` - External RPA runner
+- `run-test.sh` - Automated test execution script
+
+### Implementation Files
+- `src/main/java/com/vibecraft/` - Server-side code
+- `src/client/java/com/vibecraft/` - Client-side code  
+- `src/main/resources/` - Mod configuration and assets
+
+### Documentation
+- `README.md` - Primary documentation
+- `COMMANDS.md` - Command reference
+- `.cursorrules` - This file
+
+## Success Criteria
+
+A feature is considered "complete" when:
+- ✅ Tests are written and comprehensive
+- ✅ All tests pass (4/4 or higher)
+- ✅ Feature works as expected in-game
+- ✅ Documentation is updated
+- ✅ No regressions in existing functionality
+- ✅ Code follows established patterns
+
+## Remember: This Framework's Purpose
+
+This project exists to prove that **AI-assisted "vibe coding" can be reliable and professional** when supported by comprehensive automated testing. Every feature we add reinforces this thesis.
+
+**Build with confidence. Test everything. Ship working code. 🚀**
