@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "com/vibecraft/mixin/LaunchedTntImpactMixin": {
+      "tick": "Lnet/minecraft/class_1541;method_5773()V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/vibecraft/mixin/LaunchedTntImpactMixin": {
+        "tick": "Lnet/minecraft/class_1541;method_5773()V"
+      }
+    }
+  }
+}

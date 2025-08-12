@@ -1,0 +1,7 @@
+accessWidener v1 named
+# vibecraft.accesswidener
+#
+# Accessible properties and methods for the Vibecraft mod.
+
+# Allow access to the 'power' field in the Explosion class.
+accessible field net/minecraft/world/explosion/Explosion power F
