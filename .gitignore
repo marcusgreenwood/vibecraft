@@ -4,6 +4,9 @@ bin/
 .gradle/
 build/
 
+# Gradle (keep wrapper, exclude cache)
+!gradle/wrapper/
+
 # Compiled class file
 *.class
 
